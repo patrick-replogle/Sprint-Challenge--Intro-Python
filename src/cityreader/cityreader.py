@@ -1,5 +1,8 @@
+import csv
 # Create a class to hold a city location. Call the class "City". It should have
 # fields for name, lat and lon (representing latitude and longitude).
+
+
 class City:
     def __init__(self, name, lat, lon):
         self.name = name
@@ -30,11 +33,11 @@ def cityreader(cities=[]):
     # Ensure that the lat and lon valuse are all floats
     # For each city record, create a new City instance and add it to the
     # `cities` list
-    with open('cities.csv', 'r') as csvfile:
+    with open('cities.csv', newline='') as csvfile:
+        reader = csv.reader(csvfile)
         counter = 0
-        for city in csvfile:
+        for city in reader:
             if counter != 0:
-                city = city.split(',')
                 cities.append(
                     City(city[0], float(city[3]), float(city[4])))
             counter += 1
@@ -80,9 +83,6 @@ for c in cities:
 input1 = input('Enter lat1, lon1: ').split(',')
 input2 = input('Enter lat2, lon2: ').split(',')
 
-i1 = [float(input1[0]), float(input1[1])]
-i2 = [float(input2[0]), float(input2[1])]
-
 
 def cityreader_stretch(lat1, lon1, lat2, lon2, cities=[]):
     # within will hold the cities that fall within the specified region
@@ -113,6 +113,10 @@ def cityreader_stretch(lat1, lon1, lat2, lon2, cities=[]):
 
     return within
 
+
+# testing cityreader_stretch function and print results
+i1 = [float(input1[0]), float(input1[1])]
+i2 = [float(input2[0]), float(input2[1])]
 
 stretch_result = cityreader_stretch(
     i1[0], i1[1], i2[0], i2[1], cities)
